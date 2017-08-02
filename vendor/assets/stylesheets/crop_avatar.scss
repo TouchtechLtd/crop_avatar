@@ -1,0 +1,27 @@
+#avatar-image {
+  .cropit-preview, .view img {
+    width: 150px;
+    height: 150px;
+  }
+  .cropit-preview {
+    cursor: pointer;
+  }
+  &:not(.cropit-disabled) {
+    .cropit-preview {
+      cursor: move;
+    }
+  }
+  .cropit-image-input {
+    display: none;
+  }
+  img {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+    border-radius: 0 !important;
+  }
+  .cropit-preview-background {
+    opacity: .2;
+  }
+}
