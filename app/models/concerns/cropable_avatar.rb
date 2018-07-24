@@ -1,20 +1,16 @@
-require 'paperclip_processors/avatar_cropper'
-
 module CropableAvatar
     extend ActiveSupport::Concern
 
     included do
-        has_attached_file :avatar,
-            styles: { medium: "300x300>", thumb: "100x100>" },
-            default_url: :gravatar_url,
-            processors: [:avatar_cropper]
-        validates_attachment_content_type :avatar, content_type: ['image/jpeg', 'image/jpeg', 'image/png']
-
-        attr_accessor :avatar_crop_x, :avatar_crop_y, :avatar_crop_w, :avatar_crop_h
+        has_one_attached :avatar
     end
 
-    def cropping_avatar?
-        !avatar_crop_x.blank? && !avatar_crop_y.blank? && !avatar_crop_w.blank? && !avatar_crop_h.blank?
+    def cropped_avatar_variant(**kwargs)
+        if !avatar_crop.blank?
+            avatar.variant(crop: avatar_crop, **kwargs)
+        else
+            avatar.variant(**kwargs)
+        end
     end
 
     private

@@ -45,9 +45,6 @@ function cropAvatarSetup() {
       zoom = $avatar.cropit('zoom'),
       portrait = size.height > size.width,
       dimen = portrait ? size.width : size.height
-    $('#avatar_crop_x').val(crop.x * -1 / zoom);
-    $('#avatar_crop_y').val(crop.y * -1 / zoom);
-    $('#avatar_crop_w').val(dimen);
-    $('#avatar_crop_h').val(dimen);
+    $('#avatar_crop').val(dimen + 'x' + dimen + '+' + (crop.x * -1 / zoom) + '+' + (crop.y * -1 / zoom));
   })
 };

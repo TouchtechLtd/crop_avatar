@@ -4,13 +4,11 @@ module CropAvatarHelper
     avatar = object.nil? ? 0 : object.send(method)
 
     content_tag :div, id: 'avatar-image' do
-      ['x', 'y', 'w', 'h'].each do |attribute|
-        attr = "#{method}_crop_#{attribute}"
-        concat hidden_field_tag field_name(object, attr, options[:index]), 0, id: attr
-      end
-      concat "<div class='cropit-preview' data-url='#{avatar.url(:medium)}'></div>".html_safe
-      concat file_field_tag field_name(object, method, options[:index]), class: 'cropit-image-input', accept: 'image/*'
-      concat text_field_tag 'prompt', nil, class: 'prompt', placeholder: 'Click to upload photo', readonly: true
+      attr = "#{method}_crop"
+      concat hidden_field_tag field_name(object, attr, options[:index]), 0, id: attr
+      concat "<div class='cropit-preview' data-url='#{object.cropped_avatar_variant(resize: '250x250')}'></div>".html_safe
+      concat file_field_tag field_name(object, method, options[:index]), class: 'avatar-upload cropit-image-input', accept: 'image/*'
+      concat text_field_tag 'file-path', nil, class: 'file-path', placeholder: "<%= t('.click_to_upload') %>", readonly: true
       concat "<script type='text/javascript'>cropAvatarSetup()</script>".html_safe
     end
   end
