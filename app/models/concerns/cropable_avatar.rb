@@ -6,6 +6,7 @@ module CropableAvatar
     end
 
     def cropped_avatar_variant(**kwargs)
+        return gravatar_url unless avatar.attached?
         if !avatar_crop.blank?
             avatar.variant(crop: avatar_crop, **kwargs)
         else
